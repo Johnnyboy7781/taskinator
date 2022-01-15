@@ -57,6 +57,8 @@ var createTaskEl = taskDataObj => {
     taskDataObj.id = taskIdCounter;
     tasks.push(taskDataObj);
 
+    saveTasks();
+
     var taskActionsEl = createTaskActions(taskIdCounter);
 
     listItemEl.appendChild(taskActionsEl);
@@ -143,6 +145,8 @@ var deleteTask = taskId => {
     }
 
     tasks = updatedTaskArr;
+
+    saveTasks();
 }
 
 var completeEditTask = (taskName, taskType, taskId) => {
@@ -157,6 +161,8 @@ var completeEditTask = (taskName, taskType, taskId) => {
             tasks[i].type = taskType;
         }
     }
+
+    saveTasks();
 
     alert("Task Updated!");
 
@@ -182,6 +188,12 @@ var taskStatusChangeHandler = event => {
             tasks[i].status = statusValue;
         }
     }
+
+    saveTasks();
+}
+
+var saveTasks = () => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 formEl.addEventListener("submit", taskFormHandler);
